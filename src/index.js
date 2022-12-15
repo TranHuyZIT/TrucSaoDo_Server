@@ -1,8 +1,13 @@
 const express = require("express");
 const connectMYSQL = require("./database/connect");
-const app = express();
+const dotenv = require("dotenv");
+const SoCoDoRouter = require("./routers/socodo");
 
-const db = connectMYSQL();
+dotenv.config();
+const app = express();
+app.use(express.json());
+
+app.use("/socodo/", SoCoDoRouter);
 
 const PORT = 8800;
 app.listen(PORT, () => {
