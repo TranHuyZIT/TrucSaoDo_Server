@@ -14,8 +14,8 @@ const Chitiet_scdController = {
   },
   findBySCD: async (req, res) => {
     try {
-      const ngay = req.body.ngay;
-      const ma_so = req.body.ma_so;
+      const ngay = req.query.ngay;
+      const ma_so = req.query.ma_so;
       const result = await ChiTietSoCoDo.find(ngay, ma_so);
       return res.status(200).json(result);
     } catch (error) {

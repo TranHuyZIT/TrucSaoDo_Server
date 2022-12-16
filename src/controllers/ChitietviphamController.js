@@ -3,7 +3,7 @@ const ChiTietViPham = require("../models/ChiTietViPham");
 const ChitietviphamController = {
   getByChiTietSCD: async (req, res) => {
     try {
-      const { ngay, ma_so } = req.body;
+      const { ngay, ma_so } = req.query;
       const result = await ChiTietViPham.find(ngay, ma_so);
       return res.status(200).json(result);
     } catch (error) {

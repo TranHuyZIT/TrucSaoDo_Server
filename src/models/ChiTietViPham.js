@@ -23,7 +23,6 @@ class ChiTietViPham {
       sql = `SELECT * FROM chi_tiet_vi_pham`;
     }
     const [result, ...rest] = await db.execute(sql);
-    console.log(result);
     return result;
   }
   static async update(ngay, ma_so, vpMa, newChiTietViPham) {
