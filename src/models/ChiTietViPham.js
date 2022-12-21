@@ -14,13 +14,21 @@ class ChiTietViPham {
   static async find(ngay = null, ma_so = null, vpMa = null) {
     let sql = "";
     if (ngay && ma_so && vpMa) {
-      sql = `SELECT * FROM chi_tiet_vi_pham WHERE ngay = '${ngay}' AND ma_so = ${ma_so} AND VP_MA = ${vpMa}`;
+      sql = `SELECT vi_pham.VP_MA, LVP_MA, DIEM_TRU, SO_LUONG FROM chi_tiet_vi_pham JOIN vi_pham on chi_tiet_vi_pham.VP_MA = vi_pham.VP_MA
+ WHERE ngay = '${ngay}' AND ma_so = ${ma_so} AND VP_MA = ${vpMa}`;
     } else if (ngay && ma_so) {
-      sql = `SELECT * FROM chi_tiet_vi_pham WHERE ngay = '${ngay}' AND ma_so = ${ma_so}`;
+      sql = `SELECT vi_pham.VP_MA, LVP_MA, DIEM_TRU, SO_LUONG FROM chi_tiet_vi_pham JOIN vi_pham on chi_tiet_vi_pham.VP_MA = vi_pham.VP_MA 
+ WHERE ngay = '${ngay}' AND ma_so = ${ma_so}`;
     } else if (vpMa) {
-      sql = `SELECT * FROM chi_tiet_vi_pham WHERE VP_MA = ${vpMa}`;
+      sql = `SELECT vi_pham.VP_MA, LVP_MA, DIEM_TRU, SO_LUONG FROM chi_tiet_vi_pham JOIN vi_pham on chi_tiet_vi_pham.VP_MA = vi_pham.VP_MA
+ WHERE VP_MA = ${vpMa}`;
     } else if (!ngay && !ma_so && !vpMa) {
-      sql = `SELECT * FROM chi_tiet_vi_pham`;
+      sql = `
+SELECT vi_pham.VP_MA, LVP_MA, DIEM_TRU, SO_LUONG FROM chi_tiet_vi_pham
+JOIN vi_pham on chi_tiet_vi_pham.VP_MA = vi_pham.VP_MA
+
+
+`;
     }
     const [result, ...rest] = await db.execute(sql);
     return result;
