@@ -37,6 +37,18 @@ const ChitietviphamController = {
       return res.status(500).json(error);
     }
   },
+  deleteChitiet: async (req, res) => {
+    try {
+      const { ngay, ma_so, vpMa } = req.body;
+      console.log(req.body);
+      console.log(ngay, ma_so, vpMa);
+      const result = await ChiTietViPham.delete(ngay, ma_so, vpMa);
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(error);
+    }
+  },
 };
 
 module.exports = ChitietviphamController;

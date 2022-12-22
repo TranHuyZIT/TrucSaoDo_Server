@@ -34,8 +34,12 @@ JOIN vi_pham on chi_tiet_vi_pham.VP_MA = vi_pham.VP_MA
     return result;
   }
   static async update(ngay, ma_so, vpMa, newChiTietViPham) {
-    console.log(newChiTietViPham);
     let sql = `UPDATE chi_tiet_vi_pham SET NGAY = '${newChiTietViPham.ngay}', MA_SO = ${newChiTietViPham.ma_so}, VP_MA = ${newChiTietViPham.vpMa}, SO_LUONG = ${newChiTietViPham.soLuong} WHERE NGAY = '${ngay}' and MA_SO = ${ma_so} and VP_MA = ${vpMa}`;
+    const [result, ...rest] = await db.execute(sql);
+    return result;
+  }
+  static async delete(ngay, ma_so, vpMa) {
+    const sql = `DELETE FROM chi_tiet_vi_pham WHERE NGAY='${ngay}' AND MA_SO=${ma_so} AND VP_MA=${vpMa}`;
     const [result, ...rest] = await db.execute(sql);
     return result;
   }

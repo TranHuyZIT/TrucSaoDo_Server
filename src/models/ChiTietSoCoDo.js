@@ -8,7 +8,8 @@ class ChiTietSoCoDo {
   }
   async save() {
     const sql = `INSERT INTO chi_tiet_so_co_do (NGAY, MA_SO, THU, TEN_HS_TRUC) VALUES ('${this.ngay}', ${this.ma_so} , ${this.thu}, '${this.tenHS}')`;
-    const newChiTiet = await db.execute(sql);
+    const [newChiTiet, ...rest] = await db.execute(sql);
+    console.log(newChiTiet, rest);
     return newChiTiet;
   }
   static async find(ngay = null, ma_so = null) {
