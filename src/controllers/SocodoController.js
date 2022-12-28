@@ -24,7 +24,8 @@ const SocodoController = {
     try {
       const l_ten = req.query.l_ten;
       const tuan = req.query.tuan;
-      let result = await SoCoDo.find(l_ten, tuan);
+      const size = req.query?.size;
+      let result = await SoCoDo.find(l_ten, tuan, null, size);
       return res.status(200).json(result);
     } catch (error) {
       console.log(error);
