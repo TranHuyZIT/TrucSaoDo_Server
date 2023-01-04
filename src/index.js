@@ -21,7 +21,7 @@ app.use("/chitietvipham", ChiTietViPhamRouter);
 app.use("/category", CategoryRouter);
 app.use("/thongke", ThongKeRouter);
 
-const PORT = 8800;
+const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
   console.log(`Server is listening on PORT: ${PORT}`);
 });
