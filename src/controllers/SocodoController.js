@@ -32,5 +32,17 @@ const SocodoController = {
       return res.status(500).json(error);
     }
   },
+  deleteSCD: async (req, res) => {
+    try {
+      const l_ten = req.query.l_ten;
+      const tuan = req.query.tuan;
+      const maSo = req.query.maSo;
+      let result = await SoCoDo.findAndDelete(l_ten, tuan, maSo);
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(error);
+    }
+  },
 };
 module.exports = SocodoController;

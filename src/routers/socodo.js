@@ -7,6 +7,7 @@ const MiddlewareControllers = require("../controllers/MiddlewareControllers");
 router.get("/", SocodoController.getAllSCD);
 router.get("/search", SocodoController.findSCD);
 router.post("/add", SocodoController.createNewSoCoDo);
+router.delete("/delete", SocodoController.deleteSCD);
 router.get(
   "/chitietscd",
 

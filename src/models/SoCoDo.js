@@ -1,4 +1,5 @@
 const db = require("../database/connect.js");
+const { getCurrentTimestamp } = require("../utils/commonUtils.js");
 class SoCoDo {
   constructor(ngayBD, ngayKT, L_ten, tuan) {
     this.ngayBD = ngayBD;
@@ -7,7 +8,8 @@ class SoCoDo {
     this.tuan = +tuan;
   }
   async save() {
-    const sql = `INSERT INTO so_co_do (NGAY_BD, NGAY_KT, L_TEN, TUAN) VALUES ('${this.ngayBD}', '${this.ngayKT}' , '${this.L_ten}', ${this.tuan})`;
+    const timestamp = getCurrentTimestamp();
+    const sql = `INSERT INTO so_co_do (NGAY_BD, NGAY_KT, L_TEN, TUAN, UPDATED_AT) VALUES ('${this.ngayBD}', '${this.ngayKT}' , '${this.L_ten}', ${this.tuan}, '${timestamp}')`;
     const newPost = await db.execute(sql);
     return newPost;
   }
@@ -37,6 +39,24 @@ class SoCoDo {
   }
   static async update(ma_so, newSCD) {
     let sql = `UPDATE so_co_do SET MA_SO = ${ma_so}, NGAY_BD = '${newSCD.NGAY_BD}', NGAY_KT = '${newSCD.NGAY_KT}', L_TEN = '${newSCD.L_TEN}', TUAN = ${newSCD.TUAN}, UPDATED_AT = '${newSCD.UPDATED_AT}' WHERE MA_SO = ${ma_so} `;
+    const [result, ...rest] = await db.execute(sql);
+    return result;
+  }
+  static async findAndDelete(l_ten, tuan, maSo) {
+    let sql = `DELETE
+    FROM 
+      so_co_do as scd 
+    where 
+      scd.MA_SO = ${maSo};
+    `;
+    if (l_ten && tuan) {
+      let sql = `DELETE
+    FROM 
+      so_co_do as scd 
+    where 
+      scd.L_TEN = '${l_ten}' and scd.TUAN = ${tuan};
+    `;
+    }
     const [result, ...rest] = await db.execute(sql);
     return result;
   }
